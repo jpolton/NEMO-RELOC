@@ -338,6 +338,9 @@ Note that the temperature and salinity variables are ``thetao`` and ``so``
 
   ncks -d x,560,620 -d y,720,800 /work/n01/n01/kariho40/NEMO/NEMOGCM_jdha/dev_r4621_NOC4_BDY_VERT_INTERP/NEMOGCM/CONFIG/AMM60smago/EXP_notradiff/OUTPUT/AMM60_5d_20131013_20131129_grid_T.nc $WDIR/INPUTS/cut_down_20131013_LBay_grid_T.nc
 
+Average over time and restore the parallel modules::
+
+  ncwa -a time_counter $WDIR/INPUTS/cut_down_20131013_LBay_grid_T.nc  $WDIR/INPUTS/cut_down_201310_LBay_grid_T.nc
 
   module unload nco cray-netcdf cray-hdf5
   module load cray-netcdf-hdf5parallel cray-hdf5-parallel
@@ -347,9 +350,9 @@ Note that the temperature and salinity variables are ``thetao`` and ``so``
 Edit namelists::
 
   vi initcd_votemper.namelist
-  cf_in     = 'cut_down_20131013_LBay_grid_T.nc'
+  cf_in     = 'cut_down_201310_LBay_grid_T.nc'
   cv_in     = 'thetao'
-  cf_x_in   = 'cut_down_20131013_LBay_grid_T.nc'
+  cf_x_in   = 'cut_down_201310_LBay_grid_T.nc'
   cv_out   = 'thetao'
   csource  = 'AMM60'
   ctarget  = 'LBay'
@@ -530,8 +533,17 @@ Submit::
 
   qsub -q short runscript
 
-Runs but something goes wrong. Check ``ocean.output``
+Check ``ocean.output``. This works but the initial conditions exceed the dimension
+bounds (too many timesteps).
+Average over time dimension (notes edited above). Resubmit.::
 
+  Job ID          Username Queue    Jobname    SessID NDS TSK Memory Time  S Time
+  --------------- -------- -------- ---------- ------ --- --- ------ ----- - -----
+  4361708.sdb     jelt     standard LBay          --    5 120    --  00:20 Q   --
+
+**PENDING** 3 March 2017::
+
+  cd /work/n01/n01/jelt/LBay/dev_r4621_NOC4_BDY_VERT_INTERP/NEMOGCM/CONFIG/LBay/EXP00
 
 6. Generate boundary conditions with PyNEMO
 +++++++++++++++++++++++++++++++++++++++++++
