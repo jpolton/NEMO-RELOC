@@ -30,6 +30,7 @@ When a new note file is created manually add it to this list to aid finding it.
 
    SEAsia
    
+I'm migrating my dirty-laundry notes to ``https://noclgitlab/jelt/NEMO-RELOC``
 
 Indices and tables
 ==================

@@ -30,7 +30,6 @@ When a new note file is created manually add it to this list to aid finding it.
 
    SEAsia
    
-   LBay
 
 Indices and tables
 ==================
